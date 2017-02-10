@@ -34,11 +34,18 @@
             </ul>
         </section>
 
+        
+
         <div id="map"></div>
 
         <section data-bind="with: selectedLocation" class="info-window">
-            <span data-bind="text: name"></span>
+            <div class="selected-info">
+                <h4 class="selected-name" data-bind="text: name"></h4>
+                <p class="selected-description" data-bind="text: description"></p>
+            </div>
         </section>
+
+        
 
         <script src="js/libs/knockout.js"></script>
         
@@ -52,6 +59,7 @@
                     zoom: 15,
                     center: initPost,
                     styles: mapStyles,
+                    disableDefaultUI: true,
                     
                     selectMapLocation: function(locationName){
                         markers.forEach(function(marker) {

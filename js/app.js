@@ -14,6 +14,7 @@ let List = function(){
 
     this.selectLocation = function(){
         self.selectedLocation().name(this.name());
+        self.selectedLocation().description(this.description());
         map.panTo({lat: this.coord()[0], lng:this.coord()[1]});
         map.selectMapLocation(this.name());
     }
