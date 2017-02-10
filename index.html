@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="css/libs/bootstrap/css/bootstrap-theme.min.css"/>
         <!-- custom theme -->
         <link rel="stylesheet" href="css/style.css"/>
-        <script src="js/config.js"></script>
+        <script src="js/mapStyles.js"></script>
         <script src="js/locations.js"></script>
 
     </head>
@@ -49,8 +49,9 @@
 
                 var initPost = {lat: locationList[0].coord[0], lng: locationList[0].coord[1]};
                 map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 15,
-                  center: initPost
+                    zoom: 15,
+                    center: initPost,
+                    styles: mapStyles
             });
             locationList.forEach(function(loc) {
                 let marker = new google.maps.Marker({
