@@ -12,12 +12,10 @@ let List = function(){
         coord: self.locations()[0].coord()
     }));
 
-    console.log(map)
-
-
     this.selectLocation = function(){
         self.selectedLocation().name(this.name());
-         map.panTo({lat: this.coord()[0], lng:this.coord()[1]});
+        map.panTo({lat: this.coord()[0], lng:this.coord()[1]});
+        map.selectMapLocation(this.name());
     }
 
     this.toggleMenu = function(){
