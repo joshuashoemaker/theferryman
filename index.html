@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>The Ferry Man</title>
+        
+        <!-- normalize -->
+        <link rel="stylesheet" href="css/libs/normalize/normalize.css"/>
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="css/libs/bootstrap/css/bootstrap.min.css"/>
+        <!-- bootstrap theme -->
+        <link rel="stylesheet" href="css/libs/bootstrap/css/bootstrap-theme.min.css"/>
+        <!-- custom theme -->
+        <link rel="stylesheet" href="css/style.css"/>
+
+    </head>
+
+    <body>
+        <header class="top-bar">
+            
+            <h3 data-bind="click: toggleMenu" class="menu-icon glyphicon glyphicon-th-list"></h3>
+            <h3 class="app-title">The Ferry Man</h3>
+
+        </header>
+
+        <section class="list-menu" data-bind="css: { 'off-left': !visible() }">
+            <input type="text" class="search form-control">
+
+            <ul class="list-group place-list" data-bind="foreach: locations">
+                <li data-bind="text: name, click: $parent.selectLocation" class="list-group-item place-item"></li>
+            </ul>
+        </section>
+
+        <section data-bind="with: selectedLocation" class="info-window">
+            <span data-bind="text: name"></span>
+        </section>
+
+        <script src="js/libs/knockout.js"></script>
+        <script src="js/locations.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+
+</html>
