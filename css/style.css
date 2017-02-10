@@ -13,6 +13,13 @@ header{
 .menu-icon{
     display: inline-block;
     margin-left: 10px;
+    cursor: pointer;
+    transition: 50ms;
+}
+
+.menu-icon:hover{
+    color: rgb(80,80,80);
+    transition: 80ms;
 }
 
 .list-menu{
@@ -27,6 +34,7 @@ header{
     position: absolute;
     left: 0px;
     transition: 100ms;
+    z-index: 1000;
 }
 
 .off-left{
@@ -63,4 +71,9 @@ header{
 .place-item:hover{
     color: rgb(180,180,180);
     border-color: rgb(150,150,150);
+}
+
+#map {
+height: 100vh;;
+width: 100%;
 }

@@ -7,15 +7,17 @@ let List = function(){
     this.visible = ko.observable(true);
     this.locations = ko.observableArray(makeLocsObserve(locationList));
     this.selectedLocation = ko.observable(new Location({
-        name: "",
-        description: "",
-        coord: []
+        name: self.locations()[0].name(),
+        description: self.locations()[0].description(),
+        coord: self.locations()[0].coord()
     }));
+
+    console.log(map)
 
 
     this.selectLocation = function(){
         self.selectedLocation().name(this.name());
-        console.log(self.selectedLocation().name())
+         map.panTo({lat: this.coord()[0], lng:this.coord()[1]});
     }
 
     this.toggleMenu = function(){
@@ -42,11 +44,11 @@ function makeLocsObserve(list){
         newLoc = {
             name: ko.observable(loc.name),
             description: ko.observable(loc.description),
-            coord: ko.observable(loc.coord)
+            coord: ko.observableArray(loc.coord)
         }
         newList.push(newLoc);
     }, this);
     return newList;
 }
 
-ko.applyBindings(new List());
+let list = ko.applyBindings(new List());
