@@ -1,4 +1,4 @@
-let List = function(){
+let ViewModel = function(){
 
     var self = this;
 
@@ -7,7 +7,9 @@ let List = function(){
 
     this.selectedLocation = ko.observable(new Location({
         name: "Select Location to Info",
-        description: "Open the menu to the left and select a location to read more information about it.",
+        description: "Open the menu to the left and select a location to read"+
+                    " more information about it. This app is still in development"+
+                    " and not all locations have been added.",
         coord: []
     }));
 
@@ -56,4 +58,4 @@ function makeLocsObserve(list){
     return newList;
 }
 
-let list = ko.applyBindings(new List());
+let list = ko.applyBindings(new ViewModel());
