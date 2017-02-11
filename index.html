@@ -27,7 +27,7 @@
 
         </header>
 
-        <section class="list-menu" data-bind="css: { 'off-left': !visible() }">
+        <section class="list-menu off-left" data-bind="css: { 'off-left': !visible() }">
             <input type="text" class="search form-control">
 
             <ul class="list-group place-list" data-bind="foreach: locations">
@@ -39,7 +39,10 @@
 
         <div id="map"></div>
 
-        <section data-bind="with: selectedLocation" class="info-window">
+        <section data-bind="with: selectedLocation, css: { 'off-bottom': !selectedInfoVisible() }" class="info-window off-bottom">
+            <div class="selected-info-nav pull-right">
+                <h3 class="selected-info-icon glyphicon glyphicon-resize-vertical" data-bind="click: $parent.toggleInfo"></h3>
+            </div>
             <div class="selected-info">
                 <h4 class="selected-name" data-bind="text: name"></h4>
                 <p class="selected-description" data-bind="text: description"></p>

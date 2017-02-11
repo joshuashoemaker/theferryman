@@ -2,12 +2,13 @@ let List = function(){
 
     var self = this;
 
-    this.visible = ko.observable(true);
+    this.visible = ko.observable(false);
     this.locations = ko.observableArray(makeLocsObserve(locationList));
+
     this.selectedLocation = ko.observable(new Location({
-        name: self.locations()[0].name(),
-        description: self.locations()[0].description(),
-        coord: self.locations()[0].coord()
+        name: "Select Location to Info",
+        description: "Open the menu to the left and select a location to read more information about it.",
+        coord: []
     }));
 
     this.selectLocation = function(){
@@ -19,6 +20,13 @@ let List = function(){
 
     this.toggleMenu = function(){
         self.visible(!self.visible());
+    }
+
+    this.selectedInfoVisible = ko.observable(false);
+    
+    this.toggleInfo = function(){
+        console.log("toggle");
+        self.selectedInfoVisible(!self.selectedInfoVisible());
     }
 
 }

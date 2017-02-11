@@ -106,4 +106,29 @@ body{
     font-size: 30px;
     color: white;
     margin: 10px 20px 10px auto;
+    transition: 100ms;
+}
+
+.selected-info-nav{
+    color: white;
+    display: block;
+    width: 100%;
+    margin: 0px auto;
+    text-align: right;
+}
+
+.selected-info-icon{
+    margin: 10px 20px;
+    cursor: pointer;
+}
+
+.selected-info-icon:hover{
+    color: rgb(80,80,80);
+    transition: 80ms;
+}
+
+.off-bottom{
+    transition-delay: 30ms;
+    transition: 100ms;
+    bottom: -160px;
 }
