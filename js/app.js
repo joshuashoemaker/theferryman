@@ -1,5 +1,3 @@
-'use scrict'
-
 let List = function(){
 
     var self = this;
@@ -38,7 +36,7 @@ let Location = function(data){
 //data in a new object and pushes that object into a new array
 //then returns that array
 function makeLocsObserve(list){
-    let newList = []
+    let newList = [];
     list.forEach(function(loc) {
         newLoc = {
             name: ko.observable(loc.name),
