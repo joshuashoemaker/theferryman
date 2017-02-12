@@ -7,7 +7,8 @@ let locationList = [
         +               "first saw and fell in love with Beatrice. He was so taken by her from this one "
         +               "meeting that she became his life long muse and true love. He would follow her "
         +               "around the city just to get glimpses of her, even though he barely ever spoke to her.",
-        coord: [43.7712899, 11.2219466]
+        coord: [43.7712899, 11.2219466],
+        address: ""
     },
     {
         name: "The Bargello",
@@ -17,7 +18,38 @@ let locationList = [
         +               "fresco attributed to none other than Giotto, who was a contemporary of Dante. "
         +               "One of the most well known and quite possibly the oldest portrait of Dante depicts "
         +               "him in Paradise, one of the earliest known images of the poet.",
-        coord: [43.7703548, 11.2573951]
+        coord: [43.7703548, 11.2573951],
+        address: ""
+    },
+    {
+        name: "Baptistery of San Giovanni",
+        description: "During Dante's time it was where Dante was christened and where he hoped in vain to "
+        +               "receive the poet's crown he knew to be his due. Inside the Cathedral there is a "
+        +               "painting by Domenico di Michelino showing Dante illuminating Florence with his Poem "
+        +               "(1465), and outside it there is the 'Sasso di Dante', from which the poet is supposed "
+        +               "to have observed the construction of the Cathedral (begun in 1296). From the Via "
+        +               "Proconcolo we reach the Corso, site the old Porta San Piero, and pass the houses of the "
+        +               "Portinari, where Dante's beloved Beatrice lived.",
+        coord: [43.7731154, 11.2528292],
+        address: "Piazza del Duomo, 50123 Firenze, Italy"
+    },
+    {
+        name: "Borgo Santa Croce",
+        description: "The old tower houses of the Alberti, along Via de' Neri and Via della Ninna to the Palazzo "
+        +               "dei Priori (later known as Palazzo Vecchio, 1299), which stands beside the Romanesque "
+        +               "church of San Pier Scheraggio (later incorporated into the Uffizi), where Dante took part "
+        +               "in city assemblies.",
+        coord: [43.7682442,11.2593632],
+        address: ""
+    },
+    {
+        name: "Piazza Signoria",
+        description: "The great open space of Piazza Signoria was recalled by Dante as the site of the houses of "
+        +               "the Ghibelline Uberti, which were demolished after the triumph of the Guelfs",
+        coord: [43.7696855,11.2534482],
+        address: "Piazza della Signoria, 50122 Firenze, Italy"
     }
+
+
 
 ];
