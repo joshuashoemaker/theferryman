@@ -41,7 +41,6 @@ let Location = function(data){
 
 }
 
-
 //takes in the array of locations and stores the observable
 //data in a new object and pushes that object into a new array
 //then returns that array
@@ -57,5 +56,31 @@ function makeLocsObserve(list){
     }, this);
     return newList;
 }
+
+//This function takes in a url endpoint to the flickr api
+//the query url is generated in the config file. On the config
+//object is a function 'flickrQuery(keyword)'. This function 
+//returns a promise that will called later to get the images later 
+function flickrPhotosPromise(flickrQuery){
+    return $.ajax({
+        url: flickrQuery,
+        dataType: "json"
+    });
+}
+
+
+//This funciton takes in a promise created from 'flickrPhotosPromise()'
+//takes the image urls and pushes them into a new array
+//then returns the array created
+function getFlickrPhotos(data){
+        let photos = data.photos.photo;
+        photos.forEach(function(p){
+            if(p.url_o != undefined){
+                photos.push(p.url_o);
+            }
+        });
+        return photos;
+}
+
 
 let list = ko.applyBindings(new ViewModel());
