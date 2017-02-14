@@ -22,8 +22,8 @@
             photosArr.forEach(function(p) {
                 photos.push(p.url_o);
             }, this);
-            //console.log("Should receive object response from Flickr")
-            //console.log(photos);
+            console.log("Should receive object response from Flickr")
+            console.log(photos);
         });
 })();
 
