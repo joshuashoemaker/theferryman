@@ -1,7 +1,7 @@
 let locationList = [
     {
         name: "The church of Santa Margherita de' Cerchi",
-        flickrKey: "The church of Santa Margherita",
+        flickrKey: "The%20church%20of%20Santa%20Margherita%20de'%20Cerchi",
         description: "From the Piazza Duomo, Via dello Studio will take you to Via del Corso where "
         +               "you can pass underneath the archway of Via Margherita to the Church of Santa "
         +               "Margherita de' Cerchi. This is the very church where the nine-year-old Dante "
@@ -13,7 +13,7 @@ let locationList = [
     },
     {
         name: "The Bargello",
-        flickrKey: "Bargello",
+        flickrKey: "The%20Bargello",
         description: "During Dante's time it was "
         +               "the headquarters of the City Council of Florence. It was here that Dante's "
         +               "exile from the city was proclaimed. Inside the chapel of the Bargello is a "
@@ -25,7 +25,7 @@ let locationList = [
     },
     {
         name: "Baptistery of San Giovanni",
-        flickrKey: "Baptistery of San Giovanni",
+        flickrKey: "Baptistery%20of%20San%20Giovanni",
         description: "During Dante's time it was where Dante was christened and where he hoped in vain to "
         +               "receive the poet's crown he knew to be his due. Inside the Cathedral there is a "
         +               "painting by Domenico di Michelino showing Dante illuminating Florence with his Poem "
@@ -38,7 +38,7 @@ let locationList = [
     },
     {
         name: "Borgo Santa Croce",
-        flickrKey: "Borgo Sant Croce",
+        flickrKey: "Borgo%20Santa%20Croce",
         description: "The old tower houses of the Alberti, along Via de' Neri and Via della Ninna to the Palazzo "
         +               "dei Priori (later known as Palazzo Vecchio, 1299), which stands beside the Romanesque "
         +               "church of San Pier Scheraggio (later incorporated into the Uffizi), where Dante took part "
@@ -48,7 +48,7 @@ let locationList = [
     },
     {
         name: "Duomo",
-        flickrKey: "Duomo of Florance",
+        flickrKey: "Duomo%20of%20Florance",
         description: "Florence's cathedral stands tall over the city with its magnificent Renaissance dome "
         +               "designed by Filippo Brunelleschi, with the baptistery right across. The cathedral named "
         +               "in honor of Santa Maria del Fiore is a vast Gothic structure built on the site of the 7th "
