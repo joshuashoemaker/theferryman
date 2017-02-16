@@ -18,43 +18,55 @@
     </head>
 
     <body>
-        <header class="top-bar">
+        <header data-bind="with: menuList" class="top-bar">
             <h3 data-bind="click: toggleMenu" class="menu-icon glyphicon glyphicon-th-list"></h3>
             <h3 class="app-title">The Ferry Man <small>A Guide to Dante's Florence</small></h3>
         </header>
 
-        <section class="list-menu off-left" data-bind="css: { 'off-left': !visible() }">
+        
+        <section class="list-menu off-left" data-bind="css: { 'off-left': !menuList.visible() }">
             <input type="text" class="search form-control">
             <ul class="list-group place-list" data-bind="foreach: locations">
-                <li data-bind="text: name, click: $parent.selectLocation" class="list-group-item place-item"></li>
+                <li data-bind="text: name, click: $parent.infoWindow.selectLocation" class="list-group-item place-item"></li>
             </ul>
         </section>
 
+        
+        <!-- ko with: infoWindow -->
         <section data-bind="with: selectedLocation, css: { 'off-bottom': !selectedInfoVisible() }" class="info-window off-bottom">
+            
             <div class="selected-info-nav pull-right">
                 <h3 class="selected-info-icon glyphicon glyphicon-resize-vertical" data-bind="click: $parent.toggleInfo"></h3>
             </div>
+            
             <div class="selected-window container">
+
                 <div class="selected-info col-md-8">
                     <h4 class="selected-name" data-bind="text: name"></h4>
                     <p class="selected-description" data-bind="text: description"></p>
                 </div>
+
                 <div class="selected-img col-md-4">
-                    <div>
-                        <img class="img-responsive" data-bind="attr: {src: currentPhoto}" src=''>
-                    </div>
+
                     <div class="arrows">
-                        <p class="next-arrow text-left glyphicon glyphicon-chevron-left col-xs-6"></p>
-                        <p class="next-arrow text-right glyphicon glyphicon-chevron-right col-xs-6"></p>
+                        <p class="next-arrow text-left glyphicon glyphicon-chevron-left col-xs-6" 
+                            data-bind="click: $parent.changePhoto.bind($data, 'left')"></p>
+
+                        <p class="next-arrow text-right glyphicon glyphicon-chevron-right col-xs-6" 
+                            data-bind="click: $parent.changePhoto.bind($data, 'right')"></p>
                     </div>
+                    
+                    <div>
+                        <img class="info-photo img-responsive" data-bind="attr: {src: currentPhoto}" src=''>
+                    </div>
+
                 </div>
             </div>
         </section>
+        <!-- /ko -->
 
-        
 
         <section id="map" style="position:absolute;top:30px;bottom:50px;left:0;right:0;z-index:-100;"></section>
-        
         <script src="js/locations.js"></script>
         <script src="js/config.js"></script>
         <script src="js/map.js"></script>

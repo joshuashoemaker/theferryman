@@ -101,6 +101,7 @@ body{
 .selected-window{
     margin: 80px auto;
     color: white;
+    overflow: hidden;
 }
 
 .open-info-icon{
@@ -145,4 +146,10 @@ body{
 
 .arrows{
     margin-top: 10px;
+}
+
+.info-photo{
+    max-height: 300px;
+    margin: auto;
+    box-shadow: 16px 12px 25px rgba(0,0,0,0.5)
 }

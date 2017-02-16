@@ -1,41 +1,90 @@
 let ViewModel = function(){
-
     var self = this;
 
-    this.visible = ko.observable(false);
     this.locations = ko.observableArray(createObservableLocs(locationList));
+    this.infoWindow = new infoWindow();
+    this.menuList = new MenuList();
+    
+}
 
-    this.selectedLocation = ko.observable(new Location({
-        name: "Select Location to Info",
-        description: "Open the menu to the left and select a location to read"+
+
+let infoWindow = function(){
+    let self = this;
+
+    this.selectedLocation = ko.observable({
+        name: ko.observable("Select Location to Info"),
+        description: ko.observable("Open the menu to the left and select a location to read"+
                     " more information about it. This app is still in development"+
-                    " and not all locations have been added.",
-        coord: []
-    }));
+                    " and not all locations have been added."),
+        coord: ko.observableArray,
+        photos: ko.observableArray,
+        currentPhoto: ko.observable(),
+        currentPhotoIndex: 0
+    });
 
     this.selectLocation = function(){
         self.selectedLocation().name(this.name());
         self.selectedLocation().description(this.description());
-        self.selectedLocation().currentPhoto(this.currentPhoto());
+        self.selectedLocation().currentPhoto(this.photos[0]);
+        self.selectedLocation().photos = this.photos;
+        self.selectedLocation().currentPhotoIndex = 0;
+
         map.panTo({lat: this.coord()[0], lng:this.coord()[1]});
         map.selectMapLocation(this.name());
     }
+
+    this.changePhoto = function(direction){
+        let index = self.selectedLocation().currentPhotoIndex;
+        let photosLen = self.selectedLocation().photos.length;
+
+        if(direction === "left"){
+            if(index <= 0){
+                newIndex = photosLen - 1;
+            }
+            else if(index >= photosLen){
+                newIndex = 0;
+            }
+            else{
+                newIndex = index - 1;
+            }
+        }
+        else if(direction === "right"){
+            if(index < 0){
+                newIndex = 0;
+            }
+            else if(index >= (photosLen - 1)){
+                newIndex = 0;
+            }
+            else{
+                newIndex = index + 1;
+            }
+        }
+        else{
+            newIndex = 0;
+        }
+
+        self.selectedLocation().currentPhotoIndex = newIndex;
+        self.selectedLocation().currentPhoto(self.selectedLocation().photos[newIndex])
+    }
+
+    this.selectedInfoVisible = ko.observable(false);
+
+    this.toggleInfo = function(){
+        self.selectedInfoVisible(!self.selectedInfoVisible());
+        console.log('toggle');
+    }
+}
+
+
+let MenuList = function(){
+    let self = this;
+
+    this.visible = ko.observable(false);
 
     //This toggle the locations menu that pulls in from the left
     this.toggleMenu = function(){
         self.visible(!self.visible());
     }
-
-    this.selectedInfoVisible = ko.observable(false);
-    
-    this.toggleInfo = function(){
-        self.selectedInfoVisible(!self.selectedInfoVisible());
-    }
-}
-
-
-let infoWindow = function(data){
-    
 }
 
 
@@ -45,8 +94,7 @@ let Location = function(data){
     this.name = ko.observable(data.name);
     this.description = ko.observable(data.description);
     this.coord = ko.observable(data.coord);
-    this.photos = [],
-    this.currentPhoto = ko.observable("")
+    this.photos = [];
 
     //If the location has a flickr keyword for search this will run
     //and on completion of the ajax request it will assign the src for
@@ -58,8 +106,7 @@ let Location = function(data){
             let promise = flickrPhotosPromise(query);
             
             promise.done(function(response){
-                photos = getFlickrPhotos(response);
-                self.currentPhoto(photos[0]);
+                self.photos = getFlickrPhotos(response);
             });
         })();
     }
