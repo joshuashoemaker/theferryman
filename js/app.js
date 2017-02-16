@@ -16,10 +16,12 @@ let ViewModel = function(){
     this.selectLocation = function(){
         self.selectedLocation().name(this.name());
         self.selectedLocation().description(this.description());
+        self.selectedLocation().currentPhoto(this.currentPhoto());
         map.panTo({lat: this.coord()[0], lng:this.coord()[1]});
         map.selectMapLocation(this.name());
     }
 
+    //This toggle the locations menu that pulls in from the left
     this.toggleMenu = function(){
         self.visible(!self.visible());
     }
@@ -27,9 +29,13 @@ let ViewModel = function(){
     this.selectedInfoVisible = ko.observable(false);
     
     this.toggleInfo = function(){
-        console.log("toggle");
         self.selectedInfoVisible(!self.selectedInfoVisible());
     }
+}
+
+
+let infoWindow = function(data){
+    
 }
 
 
@@ -39,17 +45,24 @@ let Location = function(data){
     this.name = ko.observable(data.name);
     this.description = ko.observable(data.description);
     this.coord = ko.observable(data.coord);
-    this.photos = ko.observableArray();
+    this.photos = [],
+    this.currentPhoto = ko.observable("")
 
-    (function(){
-        let query = config.flickrQuery(data.flickrKey);
-        let promise = flickrPhotosPromise(query);
-        
-        promise.done(function(response){
-            let photos = getFlickrPhotos(response);
-            self.photos(photos);
-        });
-    })();
+    //If the location has a flickr keyword for search this will run
+    //and on completion of the ajax request it will assign the src for
+    //images to the photos array. The presence of a keyword is in place
+    //primarily for the reason of the creation of a fake location at page load
+    if (data.flickrKey){
+        (function(){
+            let query = config.flickrQuery(data.flickrKey);
+            let promise = flickrPhotosPromise(query);
+            
+            promise.done(function(response){
+                photos = getFlickrPhotos(response);
+                self.currentPhoto(photos[0]);
+            });
+        })();
+    }
 }
 
 

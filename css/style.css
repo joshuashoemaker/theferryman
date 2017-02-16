@@ -40,7 +40,7 @@ body{
     position: absolute;
     left: 0px;
     transition: 100ms;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .off-left{
@@ -89,18 +89,17 @@ body{
     position: absolute;
     width: 100%;
     bottom: 0px;
-    height: 200px;
+    height: calc(100vh - 100px);
     background-color: rgba(17,17,17,0.8);
     box-shadow: 0px -6px 12px rgba(0,0,0,0.5);
     margin: 0px;
-    z-index: 2000;
+    z-index: 1000;
     transition-delay: 30ms;
     transition: 100ms;
 }
 
-.selected-info{
-    max-width: 600px;
-    margin: 0px auto;
+.selected-window{
+    margin: 80px auto;
     color: white;
 }
 
@@ -132,5 +131,18 @@ body{
 .off-bottom{
     transition-delay: 30ms;
     transition: 100ms;
-    bottom: -160px;
+    bottom: calc(-100vh + 160px);
+}
+
+.next-arrow{
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.next-arrow:hover{
+    color: rgb(80,80,80);
+}
+
+.arrows{
+    margin-top: 10px;
 }
