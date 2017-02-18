@@ -23,14 +23,14 @@ let infoWindow = function(){
     });
 
     this.selectLocation = function(){
-        self.selectedLocation().name(this.name());
-        self.selectedLocation().description(this.description());
+        self.selectedLocation().name(this.name);
+        self.selectedLocation().description(this.description);
         self.selectedLocation().currentPhoto(this.photos[0]);
         self.selectedLocation().photos = this.photos;
         self.selectedLocation().currentPhotoIndex = 0;
 
-        map.panTo({lat: this.coord()[0], lng:this.coord()[1]});
-        map.selectMapLocation(this.name());
+        map.panTo({lat: this.coord[0], lng:this.coord[1]});
+        map.selectMapLocation(this.name);
     }
 
     this.changePhoto = function(direction){
@@ -91,9 +91,9 @@ let MenuList = function(){
 let Location = function(data){
     let self = this;
 
-    this.name = ko.observable(data.name);
-    this.description = ko.observable("Data Loading from Wikipedia");
-    this.coord = ko.observable(data.coord);
+    this.name = data.name;
+    this.description = "Data Loading from Wikipedia";
+    this.coord = data.coord;
     this.photos = [];
 
     //If the location has a flickr keyword for search this will run
@@ -132,7 +132,7 @@ let Location = function(data){
         //fallback to the hardcoded info.
         promise.done(function(response){
             let wiki = response.query.pages[0];
-            self.description(wiki.extract);
+            self.description = wiki.extract;
         });
 
         //On failure of Wiki API call make location description this error message
