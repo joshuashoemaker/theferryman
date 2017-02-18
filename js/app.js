@@ -1,5 +1,4 @@
 let ViewModel = function(){
-    var self = this;
 
     this.locations = ko.observableArray(createObservableLocs(locationList));
     this.infoWindow = new infoWindow();
@@ -8,9 +7,12 @@ let ViewModel = function(){
 }
 
 
+//Window displaying the information on location selected.
 let infoWindow = function(){
     let self = this;
 
+    //the initial setup of a fake location that give instructions to the user
+    //on how to navigate the app.
     this.selectedLocation = ko.observable({
         name: ko.observable("Select Location to Info"),
         description: ko.observable("Open the menu to the left and select a location to read"+
@@ -22,6 +24,8 @@ let infoWindow = function(){
         currentPhotoIndex: 0
     });
 
+    //When a Location from MeniList is selected this function is called.
+    //This changes the informaiton displayed to show relevant informaiton
     this.selectLocation = function(){
         self.selectedLocation().name(this.name);
         self.selectedLocation().description(this.description);
@@ -29,53 +33,66 @@ let infoWindow = function(){
         self.selectedLocation().photos = this.photos;
         self.selectedLocation().currentPhotoIndex = 0;
 
+        //this moves the center of the map window to the current Location
         map.panTo({lat: this.coord[0], lng:this.coord[1]});
+        //This changes the animatoins of the selected and non selected locations
         map.selectMapLocation(this.name);
     }
 
+    //Fired when the user selects one of the direction arrows above the location
+    //photo. cycles through the array of photo SRCs that the Location has
     this.changePhoto = function(direction){
         let index = self.selectedLocation().currentPhotoIndex;
         let photosLen = self.selectedLocation().photos.length;
 
         if(direction === "left"){
+            //if we go too far left start at the end of the array
             if(index <= 0){
                 newIndex = photosLen - 1;
             }
+            //incase there is a problem with going over the array length
+            //default it to zero
             else if(index >= photosLen){
                 newIndex = 0;
             }
+            //the default of the action is to move down the array
             else{
                 newIndex = index - 1;
             }
         }
         else if(direction === "right"){
+            //incase there is a problem with going under zero default it to zero
             if(index < 0){
                 newIndex = 0;
             }
+            //if we go over the array length restart back at zero
             else if(index >= (photosLen - 1)){
                 newIndex = 0;
             }
+            //default action is to move up the array
             else{
                 newIndex = index + 1;
             }
         }
+        //who knows what might happen so set it to zero
         else{
             newIndex = 0;
         }
 
+        //set the newIndex and Photo SRC
         self.selectedLocation().currentPhotoIndex = newIndex;
         self.selectedLocation().currentPhoto(self.selectedLocation().photos[newIndex])
     }
 
     this.selectedInfoVisible = ko.observable(false);
 
+    //this toggle the info window when the user clicks on the double verticle arrows
     this.toggleInfo = function(){
         self.selectedInfoVisible(!self.selectedInfoVisible());
-        console.log('toggle');
     }
 }
 
-
+//Menu of Locations. Pulls in from the right
 let MenuList = function(){
     let self = this;
 
@@ -182,6 +199,8 @@ function getFlickrPhotos(data){
         return newPhotos;
 }
 
+//This function returns an AJAX promise to be called to get the Wiki
+//article extract later for each location.
 function wikiArticlePromise(wikiQuery){
     return $.ajax({
         url: wikiQuery,
@@ -189,5 +208,5 @@ function wikiArticlePromise(wikiQuery){
     });
 }
 
-
-let list = ko.applyBindings(new ViewModel());
+//Lets Get Crakin'
+ko.applyBindings(new ViewModel());
