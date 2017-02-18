@@ -117,23 +117,29 @@ let FilterSearch = function(){
     }
 
     this.filter = function(value){
+        let patt = RegExp(value);
+        let foundLocations = [];
+
         //If we are filtering by keyword. 
         if(value.charAt(0) === '#'){
             let splitKey = value.split('#')
             let keyword = splitKey[1];
-            console.log(keyword);
 
-            let foundLocations = [];
             locationList.forEach(function(loc) {
                 if(loc.keywords.includes(keyword)){
                     foundLocations.push(loc);
                 }
             }, this);
-
-            
-            console.log(foundLocations);
-            VM.locations(createLocations(foundLocations));
         }
+        else if(value.charAt(0) != '#'){
+            locationList.forEach(function(loc) {
+                if(patt.test(loc.name)){
+                    foundLocations.push(loc);
+                }
+            }, this);
+        }
+        
+        VM.locations(createLocations(foundLocations));
     }
 }
 
