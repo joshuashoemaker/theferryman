@@ -19,15 +19,18 @@
                             }
                         }, this);
                     }
-            });
-            locationList.forEach(function(loc) {
-                let marker = new google.maps.Marker({
-                    position: {lat: loc.coord[0], lng: loc.coord[1]},
-                    animation: google.maps.Animation.DROP,
-                    title: loc.name,
-                    map: map
-                });
-            markers.push(marker);
-        }, this);
-        
-          }
+                });
+                locationList.forEach(function(loc) {
+                    let marker = new google.maps.Marker({
+                        position: {lat: loc.coord[0], lng: loc.coord[1]},
+                        animation: google.maps.Animation.DROP,
+                        title: loc.name,
+                        map: map
+                    });
+                markers.push(marker);
+            }, this);
+        }
+
+function googleError(){
+    document.getElementById("map").innerHTML = "<h1>Google Maps failed to load properly. Please check back soon!</h1>";
+}

@@ -85,6 +85,12 @@ body{
     width: 100%;
 }
 
+#map h1{
+    color: white;
+    margin-top: 150px;
+    text-align: center;
+}
+
 .info-window{
     position: absolute;
     width: 100%;
@@ -96,6 +102,7 @@ body{
     z-index: 1000;
     transition-delay: 30ms;
     transition: 100ms;
+    overflow-y: scroll;
 }
 
 .selected-window{
