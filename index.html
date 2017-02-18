@@ -25,7 +25,11 @@
 
         
         <section class="list-menu off-left" data-bind="css: { 'off-left': !menuList.visible() }">
-            <input type="text" class="search form-control">
+
+            <input type="text" class="search form-control" 
+                data-bind="value: filterSearch.input, valueUpdate: 'keyup', event: { keyup: filterSearch.searchQueryEntered }"
+                placeholder="Location Name or '#Keywords'">
+
             <ul class="list-group place-list" data-bind="foreach: locations">
                 <li data-bind="text: name, click: $parent.infoWindow.selectLocation" class="list-group-item place-item"></li>
             </ul>
@@ -71,6 +75,9 @@
 
 
         <section id="map" style="position:absolute;top:30px;bottom:50px;left:0;right:0;z-index:-100;"></section>
+
+
+        <script src="js/libs/underscore.js"></script>
         <script src="js/locations.js"></script>
         <script src="js/config.js"></script>
         <script src="js/map.js"></script>

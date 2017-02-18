@@ -1,14 +1,15 @@
 let ViewModel = function(){
 
-    this.locations = ko.observableArray(createObservableLocs(locationList));
-    this.infoWindow = new infoWindow();
+    this.locations = ko.observableArray(createLocations(locationList));
+    this.infoWindow = new InfoWindow();
+    this.filterSearch = new FilterSearch();
     this.menuList = new MenuList();
     
 }
 
 
 //Window displaying the information on location selected.
-let infoWindow = function(){
+let InfoWindow = function(){
     let self = this;
 
     //the initial setup of a fake location that give instructions to the user
@@ -105,6 +106,38 @@ let MenuList = function(){
 }
 
 
+let FilterSearch = function(){
+    let self = this;
+
+    this.input = ko.observable("");
+    
+    this.searchQueryEntered = function(value, event){
+        self.filter(self.input());
+        return true;
+    }
+
+    this.filter = function(value){
+        //If we are filtering by keyword. 
+        if(value.charAt(0) === '#'){
+            let splitKey = value.split('#')
+            let keyword = splitKey[1];
+            console.log(keyword);
+
+            let foundLocations = [];
+            locationList.forEach(function(loc) {
+                if(loc.keywords.includes(keyword)){
+                    foundLocations.push(loc);
+                }
+            }, this);
+
+            
+            console.log(foundLocations);
+            VM.locations(createLocations(foundLocations));
+        }
+    }
+}
+
+
 let Location = function(data){
     let self = this;
 
@@ -163,13 +196,13 @@ let Location = function(data){
 //takes in the array of locations and stores the observable
 //data in a new object and pushes that object into a new array
 //then returns that array
-function createObservableLocs(list){
-    let newList = [];
-    list.forEach(function(loc) {
-        let newLoc = new Location(loc);
-        newList.push(newLoc);
-    }, this);
-    return newList;
+function createLocations(list){
+        let newList = [];
+        list.forEach(function(loc) {
+            let newLoc = new Location(loc);
+            newList.push(newLoc);
+        }, this);
+        return newList;
 }
 
 
@@ -209,4 +242,5 @@ function wikiArticlePromise(wikiQuery){
 }
 
 //Lets Get Crakin'
-ko.applyBindings(new ViewModel());
+let VM = new ViewModel();
+ko.applyBindings(VM);

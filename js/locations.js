@@ -10,7 +10,8 @@ let locationList = [
         +               "meeting that she became his life long muse and true love. He would follow her "
         +               "around the city just to get glimpses of her, even though he barely ever spoke to her.",
         coord: [43.7712899, 11.2219466],
-        address: ""
+        address: "",
+        keywords: ["church", "Church"]
     },
     {
         name: "The Bargello",
@@ -23,7 +24,8 @@ let locationList = [
         +               "One of the most well known and quite possibly the oldest portrait of Dante depicts "
         +               "him in Paradise, one of the earliest known images of the poet.",
         coord: [43.7703548, 11.2573951],
-        address: ""
+        address: "",
+        keywords: []
     },
     {
         name: "Baptistery of San Giovanni",
@@ -37,7 +39,8 @@ let locationList = [
         +               "Proconcolo we reach the Corso, site the old Porta San Piero, and pass the houses of the "
         +               "Portinari, where Dante's beloved Beatrice lived.",
         coord: [43.7731154, 11.2528292],
-        address: "Piazza del Duomo, 50123 Firenze, Italy"
+        address: "Piazza del Duomo, 50123 Firenze, Italy",
+        keywords: ["church", "Church"]
     },
     {
         name: "Santa Croce",
@@ -48,7 +51,8 @@ let locationList = [
         +               "church of San Pier Scheraggio (later incorporated into the Uffizi), where Dante took part "
         +               "in city assemblies.",
         coord: [43.7682442,11.2593632],
-        address: ""
+        address: "",
+        keywords: []
     },
     {
         name: "Duomo",
@@ -59,6 +63,7 @@ let locationList = [
         +               "in honor of Santa Maria del Fiore is a vast Gothic structure built on the site of the 7th "
         +               "century church of Santa Reparata, the remains of which can be seen in the crypt.",
         coord: [43.773145,11.2537662],
-        address: "50123 Florence, Italy"
+        address: "50123 Florence, Italy",
+        keywords: ["church", "Church"]
     }
 ];
