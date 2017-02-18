@@ -105,12 +105,20 @@ let Location = function(data){
         
         promise.done(function(response){
             self.photos = getFlickrPhotos(response);
+            //if the Flickr API call was successful but there were not photos
+            //returned then populate the photos array with the standard error photo
+            if(self.photos.length == 0){
+                self.photos = ["img/dante.jpeg"]
+            }
         });
 
+        //If Flickr API call was a failure then populate the photos array
+        //with the standard error photo. 
         promise.fail(function(response){
-            self.photos = [""]
+            self.photos = ["img/dante.jpeg"]
         });
     }
+
 
     //If the location has a Wiki keyword for search this will run
     //and on completion of the ajax request it will assign the extract 
@@ -127,6 +135,7 @@ let Location = function(data){
             self.description(wiki.extract);
         });
 
+        //On failure of Wiki API call make location description this error message
         promise.fail(function(response){
             self.description("Unable to load data from Wikipedia. Please try us again later.")
         });
