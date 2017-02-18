@@ -92,23 +92,44 @@ let Location = function(data){
     let self = this;
 
     this.name = ko.observable(data.name);
-    this.description = ko.observable(data.description);
+    this.description = ko.observable("Data Loading from Wikipedia");
     this.coord = ko.observable(data.coord);
     this.photos = [];
 
     //If the location has a flickr keyword for search this will run
     //and on completion of the ajax request it will assign the src for
-    //images to the photos array. The presence of a keyword is in place
-    //primarily for the reason of the creation of a fake location at page load
+    //images to the photos array.
     if (data.flickrKey){
-        (function(){
-            let query = config.flickrQuery(data.flickrKey);
-            let promise = flickrPhotosPromise(query);
-            
-            promise.done(function(response){
-                self.photos = getFlickrPhotos(response);
-            });
-        })();
+        let query = config.flickrQuery(data.flickrKey);
+        let promise = flickrPhotosPromise(query);
+        
+        promise.done(function(response){
+            self.photos = getFlickrPhotos(response);
+        });
+
+        promise.fail(function(response){
+            self.photos = [""]
+        });
+    }
+
+    //If the location has a Wiki keyword for search this will run
+    //and on completion of the ajax request it will assign the extract 
+    //article object to the 'wiki' object located on the location.
+    if(data.wikiKey){
+        let query = config.wikiQuery(data.wikiKey);
+        let promise = wikiArticlePromise(query);
+
+        //If info is received from Wikipedia then the Location's description
+        //will be changed to the extracted information. If not then it will
+        //fallback to the hardcoded info.
+        promise.done(function(response){
+            let wiki = response.query.pages[0];
+            self.description(wiki.extract);
+        });
+
+        promise.fail(function(response){
+            self.description("Unable to load data from Wikipedia. Please try us again later.")
+        });
     }
 }
 
@@ -150,6 +171,13 @@ function getFlickrPhotos(data){
             }
         });
         return newPhotos;
+}
+
+function wikiArticlePromise(wikiQuery){
+    return $.ajax({
+        url: wikiQuery,
+        dataType: "jsonp"
+    });
 }
 
 
