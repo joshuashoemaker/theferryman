@@ -27,6 +27,12 @@
                         title: loc.name,
                         map: map
                     });
+                    marker.addListener('click', function() {
+                        map.setZoom(15);
+                        map.panTo(marker.getPosition());
+                        VM.infoWindow.selectLocation(marker.title);
+                    });
+
                 markers.push(marker);
             }, this);
         }

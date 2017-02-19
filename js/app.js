@@ -25,19 +25,33 @@ let InfoWindow = function(){
         currentPhotoIndex: 0
     });
 
-    //When a Location from MeniList is selected this function is called.
-    //This changes the informaiton displayed to show relevant informaiton
-    this.selectLocation = function(){
-        self.selectedLocation().name(this.name);
-        self.selectedLocation().description(this.description);
-        self.selectedLocation().currentPhoto(this.photos[0]);
-        self.selectedLocation().photos = this.photos;
-        self.selectedLocation().currentPhotoIndex = 0;
+    //When a Location from MenuList is selected this function is called.
+    //This changes the informaiton displayed to show relevant informaiton.
+    //The name of the location is passed into this function to find data 
+    //for the location.
+    this.selectLocation = function(name){
+        let foundLoc = {};
+        
+        //iterate through locations to find the one selected
+        VM.locations().forEach(function(loc) {
+            if(loc.name === name){
+                foundLoc = loc;
+            }
+        }, this);
+
+        //Only if a location was found in the array do we reassign.
+        if(foundLoc != {}){
+            self.selectedLocation().name(foundLoc.name);
+            self.selectedLocation().description(foundLoc.description);
+            self.selectedLocation().currentPhoto(foundLoc.photos[0]);
+            self.selectedLocation().photos = foundLoc.photos;
+            self.selectedLocation().currentPhotoIndex = 0;
+        }
 
         //this moves the center of the map window to the current Location
-        map.panTo({lat: this.coord[0], lng:this.coord[1]});
+        map.panTo({lat: foundLoc.coord[0], lng:foundLoc.coord[1]});
         //This changes the animatoins of the selected and non selected locations
-        map.selectMapLocation(this.name);
+        map.selectMapLocation(foundLoc.name);
     }
 
     //Fired when the user selects one of the direction arrows above the location

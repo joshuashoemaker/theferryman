@@ -31,7 +31,7 @@
                 placeholder="Location Name or '#Keywords'">
 
             <ul class="list-group place-list" data-bind="foreach: locations">
-                <li data-bind="text: name, click: $parent.infoWindow.selectLocation" class="list-group-item place-item"></li>
+                <li data-bind="text: name, click: $parent.infoWindow.selectLocation.bind($data, name)" class="list-group-item place-item"></li>
             </ul>
         </section>
 
