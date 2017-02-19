@@ -46,12 +46,11 @@ let InfoWindow = function(){
             self.selectedLocation().currentPhoto(foundLoc.photos[0]);
             self.selectedLocation().photos = foundLoc.photos;
             self.selectedLocation().currentPhotoIndex = 0;
+            foundLoc.marker.bounce();
         }
 
         //this moves the center of the map window to the current Location
         map.panTo({lat: foundLoc.coord[0], lng:foundLoc.coord[1]});
-        //This changes the animatoins of the selected and non selected locations
-        map.selectMapLocation(foundLoc.name);
     }
 
     //Fired when the user selects one of the direction arrows above the location
@@ -198,9 +197,16 @@ let Location = function(data){
 
         this.marker.addListener('click', function() {
             map.setZoom(15);
-            map.panTo(marker.getPosition());
-            VM.infoWindow.selectLocation(marker.title);
+            map.panTo(self.marker.getPosition());
+            self.marker.bounce();
         });
+
+        this.marker.bounce = function(){
+            self.marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){
+                self.marker.setAnimation(google.maps.Animation.NONE);
+            }, 3000);
+        }
 
 
     //If the location has a flickr keyword for search this will run
@@ -244,7 +250,7 @@ let Location = function(data){
 
         //On failure of Wiki API call make location description this error message
         promise.fail(function(response){
-            self.description("Unable to load data from Wikipedia. Please try us again later.")
+            self.description ="Unable to load data from Wikipedia. Please try us again later.";
         });
     }
 }
