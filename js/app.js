@@ -162,6 +162,9 @@ let FilterSearch = function(){
         
         //assign the new locations
         VM.locations(createLocations(foundLocations));
+
+        //Filter location markers. Function found in map.js
+        createMarkers(VM.locations());
     }
 }
 
