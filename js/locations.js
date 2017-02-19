@@ -1,19 +1,19 @@
 let locationList = [
     {
-        name: "The church of Santa Margherita de' Cerchi",
-        flickrKey: "Santa%20Margherita%20de'%20Cerchi",
-        wikiKey: "Santa%20Margherita%20de'%20Cerchi",
-        coord: [43.7712899, 11.2219466],
-        address: "",
-        keywords: ["church"]
-    },
-    {
         name: "The Bargello",
         flickrKey: "The%20Bargello",
         wikiKey: "Bargello",
         coord: [43.7703548, 11.2573951],
         address: "",
         keywords: []
+    },
+    {
+        name: "The church of Santa Margherita de' Cerchi",
+        flickrKey: "Santa%20Margherita%20de'%20Cerchi",
+        wikiKey: "Santa%20Margherita%20de'%20Cerchi",
+        coord: [43.7712899, 11.2219466],
+        address: "",
+        keywords: ["church"]
     },
     {
         name: "Baptistery of San Giovanni",
