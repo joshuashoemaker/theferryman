@@ -133,6 +133,9 @@ let FilterSearch = function(){
     this.filter = function(value){
         //Create a pattern from the value passed in to test() while searching
         let patt = RegExp(value);
+        
+        //reference to ViewModels locations
+        let locations = VM.locations();
 
         let foundLocations = [];
 
@@ -141,7 +144,7 @@ let FilterSearch = function(){
             let splitKey = value.split('#')
             let keyword = splitKey[1].toLowerCase();
 
-            locationList.forEach(function(loc) {
+            locations.forEach(function(loc) {
                 if(loc.keywords.includes(keyword)){
                     foundLocations.push(loc);
                 }
@@ -149,7 +152,7 @@ let FilterSearch = function(){
         }
         //Search by name if no using keyword search
         else if(value.charAt(0) != '#'){
-            locationList.forEach(function(loc) {
+            locations.forEach(function(loc) {
                 if(patt.test(loc.name.toLowerCase())){
                     foundLocations.push(loc);
                 }
@@ -157,14 +160,21 @@ let FilterSearch = function(){
         }
         //default foundLocations[] to entire locationsList[] if all cases fail
         else{
-            foundLocations = locationsList;
+            foundLocations = locations;
         }
         
-        //assign the new locations
-        VM.locations(createLocations(foundLocations));
+        //make all locations invisible
+        locations.forEach(function(loc) {
+            loc.visible(false);
+        }, this);
+
+        //render filtered locations
+        foundLocations.forEach(function(loc) {
+            loc.visible(true);
+        }, this);
 
         //Filter location markers. Function found in map.js
-        createMarkers(VM.locations());
+        filterMarkers(locations);
     }
 }
 
@@ -176,6 +186,22 @@ let Location = function(data){
     this.description = "Data Loading from Wikipedia";
     this.coord = data.coord;
     this.photos = [];
+    this.keywords = data.keywords;
+    this.visible = ko.observable(true);
+
+    //Here we create the marker for each Location to be rendered on the map
+    this.marker = new google.maps.Marker({
+            position: {lat: self.coord[0], lng: self.coord[1]},
+            title: self.name,
+            map: map
+        });
+
+        this.marker.addListener('click', function() {
+            map.setZoom(15);
+            map.panTo(marker.getPosition());
+            VM.infoWindow.selectLocation(marker.title);
+        });
+
 
     //If the location has a flickr keyword for search this will run
     //and on completion of the ajax request it will assign the src for

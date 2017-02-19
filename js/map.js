@@ -8,51 +8,29 @@ function initMap() {
         zoom: 15,
         center: initPost,
         styles: mapStyles,
-        disableDefaultUI: true,
-                
-        selectMapLocation: function(locationName){
-            markers.forEach(function(marker) {
-                if(marker.title === locationName){
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-                if(marker.title != locationName){
-                    marker.setAnimation(google.maps.Animation.NONE);
-                }
-            }, this);
-        }
+        disableDefaultUI: true
     });
-        
-    createMarkers(locationList);
 }
-    
-function createMarkers(locations){
 
-    //clear all markers
-    setMapOnAll(null);
-    markers = [];
-    
+
+function filterMarkers(locations){    
     locations.forEach(function(loc) {
-        let marker = new google.maps.Marker({
-            position: {lat: loc.coord[0], lng: loc.coord[1]},
-            title: loc.name,
-            map: map
-        });
-
-        marker.addListener('click', function() {
-            map.setZoom(15);
-            map.panTo(marker.getPosition());
-            VM.infoWindow.selectLocation(marker.title);
-        });
-
-        markers.push(marker);
+        if(loc.visible()){
+            loc.marker.setVisible(true);
+        }
+        else{
+            loc.marker.setVisible(false);
+        }
     }, this);
 }
+
 
 function setMapOnAll(map) {
-    markers.forEach(function(mark) {
-          mark.setMap(map);
+    markers.forEach(function(marker) {
+          marker.setMap(map);
     }, this);
 }
+
 
 function googleError(){
     document.getElementById("map").innerHTML = "<h1>Google Maps failed to load properly. Please check back soon!</h1>";

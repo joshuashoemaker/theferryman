@@ -160,3 +160,7 @@ body{
     margin: auto;
     box-shadow: 16px 12px 25px rgba(0,0,0,0.5)
 }
+
+.not-visible{
+    display: none;
+}
