@@ -59,4 +59,5 @@ Also in this file we handle the removal and showing of filtered locations.
 
 #Install
 Just run on a local server and visit localhost:'WhatEverPortYouHostOn'. I use the Express Server extention in VS Code to run mine.
-You can also just visit https://github.com/JoshuaShoemaker/theferryman to see it running now.
+You can also just visit https://github.com/JoshuaShoemaker/theferryman to see it running now. No need to change the path in local host, 
+the app runs from the index.html.
