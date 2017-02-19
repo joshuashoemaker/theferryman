@@ -117,13 +117,15 @@ let FilterSearch = function(){
     }
 
     this.filter = function(value){
+        //Create a pattern from the value passed in to test() while searching
         let patt = RegExp(value);
+
         let foundLocations = [];
 
         //If we are filtering by keyword. 
         if(value.charAt(0) === '#'){
             let splitKey = value.split('#')
-            let keyword = splitKey[1];
+            let keyword = splitKey[1].toLowerCase();
 
             locationList.forEach(function(loc) {
                 if(loc.keywords.includes(keyword)){
@@ -131,14 +133,20 @@ let FilterSearch = function(){
                 }
             }, this);
         }
+        //Search by name if no using keyword search
         else if(value.charAt(0) != '#'){
             locationList.forEach(function(loc) {
-                if(patt.test(loc.name)){
+                if(patt.test(loc.name.toLowerCase())){
                     foundLocations.push(loc);
                 }
             }, this);
         }
+        //default foundLocations[] to entire locationsList[] if all cases fail
+        else{
+            foundLocations = locationsList;
+        }
         
+        //assign the new locations
         VM.locations(createLocations(foundLocations));
     }
 }

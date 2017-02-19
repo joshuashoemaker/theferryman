@@ -11,7 +11,7 @@ let locationList = [
         +               "around the city just to get glimpses of her, even though he barely ever spoke to her.",
         coord: [43.7712899, 11.2219466],
         address: "",
-        keywords: ["church", "Church"]
+        keywords: ["church"]
     },
     {
         name: "The Bargello",
@@ -40,7 +40,7 @@ let locationList = [
         +               "Portinari, where Dante's beloved Beatrice lived.",
         coord: [43.7731154, 11.2528292],
         address: "Piazza del Duomo, 50123 Firenze, Italy",
-        keywords: ["church", "Church"]
+        keywords: ["church"]
     },
     {
         name: "Santa Croce",
@@ -64,6 +64,6 @@ let locationList = [
         +               "century church of Santa Reparata, the remains of which can be seen in the crypt.",
         coord: [43.773145,11.2537662],
         address: "50123 Florence, Italy",
-        keywords: ["church", "Church"]
+        keywords: ["church"]
     }
 ];
