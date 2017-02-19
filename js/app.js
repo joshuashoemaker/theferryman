@@ -24,6 +24,12 @@ let InfoWindow = function(){
         currentPhoto: ko.observable(),
         currentPhotoIndex: 0
     });
+    
+    //Called when an error message is recieved from API calls to rerender the Location
+    //Data with the error message
+    this.updateSelectedLocation = function(location){
+        this.selectLocation(location.name);
+    }
 
     //When a Location from MenuList is selected this function is called.
     //This changes the informaiton displayed to show relevant informaiton.
@@ -195,18 +201,18 @@ let Location = function(data){
             map: map
         });
 
-        this.marker.addListener('click', function() {
-            map.setZoom(15);
-            map.panTo(self.marker.getPosition());
-            self.marker.bounce();
-        });
+    this.marker.addListener('click', function() {
+        map.setZoom(15);
+        map.panTo(self.marker.getPosition());
+        self.marker.bounce();
+    });
 
-        this.marker.bounce = function(){
-            self.marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function(){
-                self.marker.setAnimation(google.maps.Animation.NONE);
-            }, 3000);
-        }
+    this.marker.bounce = function(){
+        self.marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){
+            self.marker.setAnimation(google.maps.Animation.NONE);
+        }, 3000);
+    }
 
 
     //If the location has a flickr keyword for search this will run
@@ -215,9 +221,20 @@ let Location = function(data){
     if (data.flickrKey){
         let query = config.flickrQuery(data.flickrKey);
         let promise = flickrPhotosPromise(query);
+
+        //set a timeout for API call. If there is not a resonce in 20 seconds then render error
+        let timeout = setTimeout(function(){
+            self.photos = ["img/dante.jpeg"]
+            VM.infoWindow.updateSelectedLocation(self);
+        }, 20000);
         
         promise.done(function(response){
+
+            //Remove Timeout if data is recieved 
+            clearTimeout(timeout);
+
             self.photos = getFlickrPhotos(response);
+
             //if the Flickr API call was successful but there were not photos
             //returned then populate the photos array with the standard error photo
             if(self.photos.length == 0){
@@ -240,17 +257,25 @@ let Location = function(data){
         let query = config.wikiQuery(data.wikiKey);
         let promise = wikiArticlePromise(query);
 
+        //set a timeout for API call. If there is not a resonce in 20 seconds then render error
+        let timeout = setTimeout(function(){
+            self.description = "Unable to load data from Wikipedia. Please try us again later.";
+            VM.infoWindow.updateSelectedLocation(self);
+        }, 20000);
+
         //If info is received from Wikipedia then the Location's description
         //will be changed to the extracted information. If not then it will
         //fallback to the hardcoded info.
         promise.done(function(response){
+            clearTimeout(timeout);
             let wiki = response.query.pages[0];
             self.description = wiki.extract;
         });
 
         //On failure of Wiki API call make location description this error message
         promise.fail(function(response){
-            self.description ="Unable to load data from Wikipedia. Please try us again later.";
+            self.description = "Unable to load data from Wikipedia. Please try us again later.";
+            VM.infoWindow.updateSelectedLocation(self);
         });
     }
 }
