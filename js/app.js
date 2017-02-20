@@ -7,7 +7,6 @@ let ViewModel = function(){
     
 }
 
-
 //Window displaying the information on location selected.
 let InfoWindow = function(){
     let self = this;
@@ -328,3 +327,8 @@ function wikiArticlePromise(wikiQuery){
         dataType: "jsonp"
     });
 }
+
+//VM is defined in map.js. We create it here so that there are no confilcts with scripts loading.
+//This way our functions that need the ViewModel can be placed into memory even though the VM
+//has not been initialized.
+let VM;

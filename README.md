@@ -3,6 +3,7 @@
 
 Built in Knockout.js this SPA provides information on locations important in Florence, Italy in the time of Dante. This app
 pulls data from Wikipedia's API and pulls photos from Flickr's API. The code is well commented so it is easy to navigate. 
+The data-bindings fire off in map.js after Google API call was successful.
 
 ##Locations Data
 We will start here, in "js/locations.js" with "let locationsList" to understand how this app is working. 

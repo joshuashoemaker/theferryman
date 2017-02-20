@@ -12,7 +12,9 @@ function initMap() {
     });
     
 //Lets Get Crakin'
-    let VM = new ViewModel();
+    //VM is first created at the bottom of 'app.js' but is left undefined.
+    VM = new ViewModel();
+    //After Google API loads we will establish the data bindings
     ko.applyBindings(VM);
 }
 
