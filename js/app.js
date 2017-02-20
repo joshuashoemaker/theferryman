@@ -328,14 +328,3 @@ function wikiArticlePromise(wikiQuery){
         dataType: "jsonp"
     });
 }
-
-//Lets Get Crakin'
-let VM = new ViewModel();
-function checkGoogle(){
-    if(google){
-        ko.applyBindings(VM);
-    }
-    else{
-        document.getElementById("map").innerHTML = "<h1>Google Maps failed to load properly. Please check back soon!</h1>";
-    }
-});

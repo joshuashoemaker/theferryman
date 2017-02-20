@@ -10,6 +10,10 @@ function initMap() {
         styles: mapStyles,
         disableDefaultUI: true
     });
+    
+//Lets Get Crakin'
+    let VM = new ViewModel();
+    ko.applyBindings(VM);
 }
 
 
