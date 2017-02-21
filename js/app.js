@@ -204,6 +204,7 @@ let Location = function(data){
         map.setZoom(15);
         map.panTo(self.marker.getPosition());
         self.marker.bounce();
+        VM.infoWindow.selectLocation(self.name)
     });
 
     this.marker.bounce = function(){
